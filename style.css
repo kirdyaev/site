@@ -363,8 +363,6 @@ a {
 .moodboards {
   display: flex;
   flex-direction: column;
-  animation: fadeUp 0.4s ease both;
-  animation-delay: 0.19s;
 }
 
 .arena-channels {
@@ -677,18 +675,24 @@ a.act-title:hover {
   color: var(--grey3);
 }
 
-/* ─── Entrance animation ─────────────────────────────────── */
+/* ─── Entrance animations ────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.hero       { animation: fadeUp 0.4s ease both; }
-.about      { animation: fadeUp 0.4s ease both; animation-delay: 0.06s; }
-.experience { animation: fadeUp 0.4s ease both; animation-delay: 0.10s; }
-.toolbox    { animation: fadeUp 0.4s ease both; animation-delay: 0.13s; }
-.contact    { animation: fadeUp 0.4s ease both; animation-delay: 0.16s; }
-.activity   { animation: fadeUp 0.4s ease both; animation-delay: 0.20s; }
+/* Scroll-reveal: JS adds .will-animate, then .animated when in view */
+.will-animate {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.will-animate.animated {
+  opacity: 1;
+  transform: none;
+}
 
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 480px) {

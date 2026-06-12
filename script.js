@@ -1,3 +1,24 @@
+/* ─── Scroll-reveal ──────────────────────────────────────── */
+(function () {
+  const SECTIONS = ['.hero', '.about', '.experience', '.toolbox', '.contact', '.moodboards', '.activity'];
+  const DELAYS   = [0, 0.06, 0.10, 0.13, 0.16, 0.19, 0.22];
+
+  const els = SECTIONS.map(s => document.querySelector(s)).filter(Boolean);
+  els.forEach(el => el.classList.add('will-animate'));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const i = els.indexOf(entry.target);
+      const delay = i !== -1 ? DELAYS[i] : 0;
+      setTimeout(() => entry.target.classList.add('animated'), delay * 1000);
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.08 });
+
+  els.forEach(el => io.observe(el));
+})();
+
 /* ─── Are.na moodboards ──────────────────────────────────── */
 const ARENA_CHANNELS = [
   { slug: 'move-fbvlnbq1piq',   href: 'https://www.are.na/kr-dv/move-fbvlnbq1piq' },
