@@ -20,8 +20,11 @@ async function loadArena() {
 
     const allImages = results
       .filter(Boolean)
-      .flatMap(ch => ch.contents || [])
-      .filter(b => b.class === 'Image' && b.image?.large?.url);
+      .flatMap((ch, i) =>
+        (ch.contents || [])
+          .filter(b => b.class === 'Image' && b.image?.large?.url)
+          .map(b => ({ ...b, _channelHref: ARENA_CHANNELS[i].href }))
+      );
 
     // Shuffle
     for (let i = allImages.length - 1; i > 0; i--) {
@@ -37,7 +40,7 @@ async function loadArena() {
     const scroll = document.createElement('div');
     scroll.className = 'arena-scroll';
     scroll.innerHTML = allImages
-      .map(b => `<a href="https://www.are.na/block/${b.id}" target="_blank" rel="noopener" class="arena-thumb-link"><img class="arena-thumb" src="${b.image.large.url}" alt="" loading="lazy"></a>`)
+      .map(b => `<a href="${b._channelHref}" target="_blank" rel="noopener" class="arena-thumb-link"><img class="arena-thumb" src="${b.image.large.url}" alt="" loading="lazy"></a>`)
       .join('');
 
     container.innerHTML = '';
