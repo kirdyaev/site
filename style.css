@@ -519,6 +519,19 @@ a {
   margin-bottom: 4px;
 }
 
+.feed-platform-icon {
+  width: 11px;
+  height: 11px;
+  display: inline-block;
+  vertical-align: middle;
+  filter: grayscale(1) opacity(0.4);
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .feed-platform-icon {
+  filter: grayscale(1) invert(1) opacity(0.4);
+}
+
 .feed-type-dot {
   width: 4px;
   height: 4px;

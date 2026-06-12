@@ -119,6 +119,15 @@ const TYPE_LABELS = {
   award:      'Award',
 };
 
+/* ─── Platform icon ──────────────────────────────────────── */
+function getPlatformSlug(link) {
+  if (!link) return '';
+  if (link.includes('linkedin.com'))                      return 'linkedin';
+  if (link.includes('medium.com'))                        return 'medium';
+  if (link.includes('youtube.com') || link.includes('youtu.be')) return 'youtube';
+  return '';
+}
+
 /* ─── Date formatter ─────────────────────────────────────── */
 function formatDate(iso) {
   const d = new Date(iso + 'T00:00:00');
@@ -143,13 +152,17 @@ function renderFeed(items) {
     }
 
     const label = TYPE_LABELS[item.type] || item.type;
+    const platform = getPlatformSlug(item.link);
+    const platformIcon = platform
+      ? `<img class="feed-platform-icon" src="https://cdn.simpleicons.org/${platform}" alt="${platform}">`
+      : '';
 
     el.innerHTML = `
       <div class="feed-date">${formatDate(item.date)}</div>
       <div class="feed-body">
         <div class="feed-type-badge">
           <span class="feed-type-dot"></span>
-          ${label}
+          ${label}${platformIcon}
         </div>
         <div class="feed-title">
           ${item.title}
