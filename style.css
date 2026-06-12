@@ -403,8 +403,8 @@ a {
 }
 
 .arena-thumb {
-  width: 140px;
-  height: 100px;
+  width: 200px;
+  height: 150px;
   border-radius: var(--radius-md);
   object-fit: cover;
   flex-shrink: 0;
@@ -413,8 +413,8 @@ a {
 }
 
 .arena-thumb-placeholder {
-  width: 140px;
-  height: 100px;
+  width: 200px;
+  height: 150px;
   border-radius: var(--radius-md);
   background: var(--wash2);
   flex-shrink: 0;
