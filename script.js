@@ -1,3 +1,81 @@
+/* ─── Are.na moodboards ──────────────────────────────────── */
+const ARENA_TOKEN = 'REPLACE_WITH_TOKEN';
+const ARENA_SLUG  = 'kr-dv';
+
+async function loadArena() {
+  const container = document.getElementById('arenaChannels');
+  if (!container) return;
+
+  try {
+    const res = await fetch(`https://api.are.na/v2/users/${ARENA_SLUG}/channels?per=10`, {
+      headers: ARENA_TOKEN !== 'REPLACE_WITH_TOKEN'
+        ? { Authorization: `Bearer ${ARENA_TOKEN}` }
+        : {}
+    });
+
+    if (!res.ok) {
+      container.innerHTML = '<div class="feed-loading">Could not load channels.</div>';
+      return;
+    }
+
+    const data = await res.json();
+    const channels = (data.channels || []).filter(c => c.status === 'public' && c.length > 0);
+
+    if (!channels.length) {
+      container.innerHTML = '<div class="feed-loading">No public channels found.</div>';
+      return;
+    }
+
+    container.innerHTML = '';
+
+    for (const ch of channels) {
+      const year = new Date(ch.created_at).getFullYear();
+      const href = `https://www.are.na/kr-dv/${ch.slug}`;
+
+      // Fetch first few images from channel
+      let thumbsHTML = '';
+      try {
+        const chRes = await fetch(`https://api.are.na/v2/channels/${ch.slug}?per=8`, {
+          headers: ARENA_TOKEN !== 'REPLACE_WITH_TOKEN'
+            ? { Authorization: `Bearer ${ARENA_TOKEN}` }
+            : {}
+        });
+        if (chRes.ok) {
+          const chData = await chRes.json();
+          const images = (chData.contents || [])
+            .filter(b => b.class === 'Image' && b.image?.large?.url)
+            .slice(0, 8);
+          thumbsHTML = images.map(b =>
+            `<img class="arena-thumb" src="${b.image.large.url}" alt="" loading="lazy">`
+          ).join('');
+        }
+      } catch (_) {}
+
+      if (!thumbsHTML) {
+        thumbsHTML = Array(4).fill('<div class="arena-thumb-placeholder"></div>').join('');
+      }
+
+      const el = document.createElement('div');
+      el.className = 'arena-channel';
+      el.innerHTML = `
+        <div class="arena-channel-meta">
+          <span class="arena-channel-period">${year}</span>
+          <a class="arena-channel-title" href="${href}" target="_blank" rel="noopener">
+            ${ch.title} ↗
+            <span class="arena-channel-count">${ch.length} blocks</span>
+          </a>
+        </div>
+        <div class="arena-scroll">${thumbsHTML}</div>
+      `;
+      container.appendChild(el);
+    }
+  } catch (e) {
+    container.innerHTML = '<div class="feed-loading">Could not load channels.</div>';
+  }
+}
+
+loadArena();
+
 /* ─── Theme toggle ───────────────────────────────────────── */
 const root = document.documentElement;
 const btn  = document.getElementById('themeToggle');

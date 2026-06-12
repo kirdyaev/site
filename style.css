@@ -336,6 +336,90 @@ a {
   color: var(--grey2);
 }
 
+/* ─── Moodboards ─────────────────────────────────────────── */
+.moodboards {
+  display: flex;
+  flex-direction: column;
+  animation: fadeUp 0.4s ease both;
+  animation-delay: 0.19s;
+}
+
+.arena-channels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.arena-channel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.arena-channel-meta {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 var(--spacing-sm);
+  align-items: baseline;
+}
+
+.arena-channel-period {
+  font-size: 12px;
+  color: var(--grey3);
+}
+
+.arena-channel-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--grey1);
+  letter-spacing: -0.005em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--transition);
+}
+
+.arena-channel-title:hover {
+  color: var(--grey2);
+}
+
+.arena-channel-count {
+  font-size: 13px;
+  color: var(--grey3);
+  font-weight: 400;
+}
+
+.arena-scroll {
+  display: flex;
+  gap: var(--spacing-xs);
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.arena-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.arena-thumb {
+  width: 140px;
+  height: 100px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--wash2);
+  display: block;
+}
+
+.arena-thumb-placeholder {
+  width: 140px;
+  height: 100px;
+  border-radius: var(--radius-md);
+  background: var(--wash2);
+  flex-shrink: 0;
+}
+
 /* ─── Activity Feed ──────────────────────────────────────── */
 .activity {
   display: flex;
