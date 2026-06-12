@@ -402,6 +402,11 @@ a {
   display: none;
 }
 
+.arena-thumb-link {
+  display: block;
+  flex-shrink: 0;
+}
+
 .arena-thumb {
   width: 200px;
   height: 150px;
@@ -410,6 +415,11 @@ a {
   flex-shrink: 0;
   background: var(--wash2);
   display: block;
+  transition: opacity var(--transition);
+}
+
+.arena-thumb-link:hover .arena-thumb {
+  opacity: 0.85;
 }
 
 .arena-thumb-placeholder {

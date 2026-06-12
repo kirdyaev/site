@@ -37,7 +37,7 @@ async function loadArena() {
     const scroll = document.createElement('div');
     scroll.className = 'arena-scroll';
     scroll.innerHTML = allImages
-      .map(b => `<img class="arena-thumb" src="${b.image.large.url}" alt="" loading="lazy">`)
+      .map(b => `<a href="https://www.are.na/block/${b.id}" target="_blank" rel="noopener" class="arena-thumb-link"><img class="arena-thumb" src="${b.image.large.url}" alt="" loading="lazy"></a>`)
       .join('');
 
     container.innerHTML = '';
