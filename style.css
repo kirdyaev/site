@@ -416,6 +416,7 @@ a {
   background: var(--wash2);
   display: block;
   transition: opacity var(--transition);
+  outline: 1px solid var(--border);
 }
 
 .arena-thumb-link:hover .arena-thumb {
