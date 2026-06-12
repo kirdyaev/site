@@ -98,15 +98,19 @@ const savedTheme = localStorage.getItem(STORAGE_KEY) || 'dark';
 
 root.setAttribute('data-theme', savedTheme);
 
-btn.addEventListener('click', () => {
-  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  root.setAttribute('data-theme', next);
-  localStorage.setItem(STORAGE_KEY, next);
-});
+if (btn) {
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(STORAGE_KEY, next);
+  });
+}
 
 /* ─── Type labels ────────────────────────────────────────── */
 const TYPE_LABELS = {
   article:    'Article',
+  medium:     'Article on Medium',
+  linkedin:   'LinkedIn post',
   talk:       'Talk',
   case:       'Case Study',
   ai:         'AI experiment',

@@ -527,6 +527,8 @@ a {
 }
 
 .type-article  .feed-type-dot { background: #3e9fff; }
+.type-medium   .feed-type-dot { background: #3e9fff; }
+.type-linkedin .feed-type-dot { background: #0a66c2; }
 .type-talk     .feed-type-dot { background: #a78bfa; }
 .type-case     .feed-type-dot { background: #f09637; }
 .type-ai       .feed-type-dot { background: #34d399; }
