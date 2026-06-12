@@ -60,9 +60,24 @@ async function loadArena() {
 
     const scroll = document.createElement('div');
     scroll.className = 'arena-scroll';
-    scroll.innerHTML = allImages
-      .map(b => `<a href="${b._channelHref}" target="_blank" rel="noopener" class="arena-thumb-link"><img class="arena-thumb" src="${b.image.large.url}" alt="" loading="lazy"></a>`)
-      .join('');
+
+    allImages.forEach((b, i) => {
+      const a = document.createElement('a');
+      a.href = b._channelHref;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.className = 'arena-thumb-link';
+      a.style.animationDelay = `${0.04 * i}s`;
+
+      const img = document.createElement('img');
+      img.className = 'arena-thumb';
+      img.src = b.image.large.url;
+      img.alt = '';
+      img.loading = 'lazy';
+
+      a.appendChild(img);
+      scroll.appendChild(a);
+    });
 
     container.innerHTML = '';
     container.appendChild(scroll);
