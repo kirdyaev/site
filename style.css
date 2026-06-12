@@ -551,6 +551,79 @@ a {
   padding: var(--spacing-sm) 0;
 }
 
+/* ─── Activities page ────────────────────────────────────── */
+.activities-back {
+  position: fixed;
+  top: 32px;
+  left: 32px;
+  font-size: 13px;
+  color: var(--grey3);
+  transition: color var(--transition);
+  z-index: 10;
+}
+
+.activities-back:hover {
+  color: var(--grey1);
+}
+
+.activities-shell {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 80px 16px;
+}
+
+.activities-intro {
+  margin-bottom: var(--spacing-xxl);
+}
+
+.activities-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--grey1);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.activities-subtitle {
+  font-size: 14px;
+  color: var(--grey2);
+  line-height: 1.5;
+}
+
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.act-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: fadeUp 0.4s ease both;
+}
+
+.act-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--grey1);
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+  transition: color var(--transition);
+}
+
+a.act-title:hover {
+  color: var(--grey2);
+}
+
+.act-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--grey2);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+
 /* ─── Show more / Back ───────────────────────────────────── */
 .show-more {
   display: inline-block;

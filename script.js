@@ -85,7 +85,7 @@ function formatDate(iso) {
   return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
 }
 
-/* ─── Render feed ────────────────────────────────────────── */
+/* ─── Render feed (main page) ────────────────────────────── */
 function renderFeed(items) {
   const feed = document.getElementById('feed');
   feed.innerHTML = '';
@@ -123,6 +123,29 @@ function renderFeed(items) {
   });
 }
 
+/* ─── Render activities page (list style) ────────────────── */
+function renderActivitiesList(items) {
+  const feed = document.getElementById('feed');
+  feed.innerHTML = '';
+
+  items.forEach((item, i) => {
+    const hasLink = item.link && item.link.trim() !== '';
+    const el = document.createElement('div');
+    el.className = 'act-item';
+    el.style.animationDelay = `${0.04 * i}s`;
+
+    el.innerHTML = `
+      ${hasLink
+        ? `<a class="act-title" href="${item.link}" target="_blank" rel="noopener">${item.title} ↗</a>`
+        : `<span class="act-title">${item.title}</span>`
+      }
+      ${item.description ? `<p class="act-desc">${item.description}</p>` : ''}
+    `;
+
+    feed.appendChild(el);
+  });
+}
+
 /* ─── Load activities ────────────────────────────────────── */
 const FEED_LIMIT = 5;
 const isActivitiesPage = document.body.dataset.page === 'activities';
@@ -132,7 +155,7 @@ fetch('activities.json')
   .then(data => {
     const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
     if (isActivitiesPage) {
-      renderFeed(sorted);
+      renderActivitiesList(sorted);
     } else {
       renderFeed(sorted.slice(0, FEED_LIMIT));
       if (sorted.length > FEED_LIMIT) {
