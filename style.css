@@ -414,14 +414,14 @@ a {
 
 .arena-thumb {
   width: 200px;
-  height: 150px;
+  height: 220px;
   border-radius: var(--radius-md);
   object-fit: cover;
   flex-shrink: 0;
   background: var(--wash2);
   display: block;
   transition: opacity var(--transition);
-  outline: 1px solid var(--border);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.07);
 }
 
 .arena-thumb-link:hover .arena-thumb {
@@ -430,7 +430,7 @@ a {
 
 .arena-thumb-placeholder {
   width: 200px;
-  height: 150px;
+  height: 220px;
   border-radius: var(--radius-md);
   background: var(--wash2);
   flex-shrink: 0;
