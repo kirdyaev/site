@@ -551,6 +551,29 @@ a {
   padding: var(--spacing-sm) 0;
 }
 
+/* ─── Show more / Back ───────────────────────────────────── */
+.show-more {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  font-size: 13px;
+  color: var(--grey2);
+  transition: color var(--transition);
+}
+
+.show-more:hover {
+  color: var(--grey1);
+}
+
+.back-link {
+  font-size: 12px;
+  color: var(--grey3);
+  transition: color var(--transition);
+}
+
+.back-link:hover {
+  color: var(--grey1);
+}
+
 /* ─── Footer ─────────────────────────────────────────────── */
 .site-footer {
   padding-top: var(--spacing-xxl);

@@ -124,9 +124,27 @@ function renderFeed(items) {
 }
 
 /* ─── Load activities ────────────────────────────────────── */
+const FEED_LIMIT = 5;
+const isActivitiesPage = document.body.dataset.page === 'activities';
+
 fetch('activities.json')
   .then(r => r.json())
-  .then(data => renderFeed(data))
+  .then(data => {
+    const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    if (isActivitiesPage) {
+      renderFeed(sorted);
+    } else {
+      renderFeed(sorted.slice(0, FEED_LIMIT));
+      if (sorted.length > FEED_LIMIT) {
+        const feed = document.getElementById('feed');
+        const btn = document.createElement('a');
+        btn.href = 'activities.html';
+        btn.className = 'show-more';
+        btn.textContent = `Show all ${sorted.length} activities →`;
+        feed.after(btn);
+      }
+    }
+  })
   .catch(() => {
     document.getElementById('feed').innerHTML =
       '<div class="feed-loading">Could not load updates.</div>';
