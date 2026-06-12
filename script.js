@@ -1,5 +1,5 @@
 /* ─── Are.na moodboards ──────────────────────────────────── */
-const ARENA_TOKEN = 'REPLACE_WITH_TOKEN';
+const ARENA_TOKEN = 'oSgO3R9FSz_f2JuUAMqVBaOeJvxwOXRUSWMCsXjLZFw';
 const ARENA_SLUG  = 'kr-dv';
 
 async function loadArena() {
