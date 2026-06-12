@@ -228,8 +228,56 @@ a {
   color: var(--grey2);
 }
 
-/* ─── Contact / Links ────────────────────────────────────── */
-.links {
+/* ─── Toolbox ─────────────────────────────────────────────── */
+.toolbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbox-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.toolbox-label {
+  font-size: 13px;
+  color: var(--grey3);
+}
+
+.tool-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.tool-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--grey3);
+  transition: color var(--transition);
+  flex-shrink: 0;
+}
+
+.tool-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.tool-icon:hover {
+  color: var(--brand, var(--grey1));
+}
+
+/* ─── Contact ────────────────────────────────────────────── */
+.contact {
   display: flex;
   flex-direction: column;
 }
@@ -237,50 +285,36 @@ a {
 .contact-list {
   display: flex;
   flex-direction: column;
-  row-gap: 0;
 }
 
-.link-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.contact-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 var(--spacing-sm);
   padding: var(--spacing-sm) 0;
   border-top: 1px solid var(--border);
-  transition: var(--transition);
+  align-items: baseline;
 }
 
-.link-item:last-child {
+.contact-row:last-child {
   border-bottom: 1px solid var(--border);
 }
 
-.link-left {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-}
-
-.link-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--grey1);
-  letter-spacing: -0.005em;
-  width: 90px;
-}
-
-.link-handle {
-  font-size: 13px;
-  color: var(--grey2);
-}
-
-.link-arrow {
+.contact-label {
   font-size: 13px;
   color: var(--grey3);
-  transition: color var(--transition), transform var(--transition);
 }
 
-.link-item:hover .link-arrow {
+.contact-link {
+  font-size: 14px;
+  font-weight: 400;
   color: var(--grey1);
-  transform: translate(2px, -2px);
+  letter-spacing: -0.005em;
+  transition: color var(--transition);
+}
+
+.contact-link:hover {
+  color: var(--grey2);
 }
 
 /* ─── Activity Feed ──────────────────────────────────────── */
@@ -400,11 +434,12 @@ a {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.hero     { animation: fadeUp 0.4s ease both; }
-.about    { animation: fadeUp 0.4s ease both; animation-delay: 0.06s; }
+.hero       { animation: fadeUp 0.4s ease both; }
+.about      { animation: fadeUp 0.4s ease both; animation-delay: 0.06s; }
 .experience { animation: fadeUp 0.4s ease both; animation-delay: 0.10s; }
-.links    { animation: fadeUp 0.4s ease both; animation-delay: 0.14s; }
-.activity { animation: fadeUp 0.4s ease both; animation-delay: 0.18s; }
+.toolbox    { animation: fadeUp 0.4s ease both; animation-delay: 0.13s; }
+.contact    { animation: fadeUp 0.4s ease both; animation-delay: 0.16s; }
+.activity   { animation: fadeUp 0.4s ease both; animation-delay: 0.20s; }
 
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 480px) {
