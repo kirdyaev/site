@@ -1,51 +1,37 @@
 [
   {
-    "date": "2026-06-01",
+    "date": "2026-05-30",
     "type": "article",
-    "title": "AI в дизайн-процессе: что реально работает",
-    "description": "Написал о том, как мы в Skyro внедряем AI-инструменты в работу команды — что ускоряет, а что создаёт новые проблемы.",
-    "link": "https://medium.com/@askirdyaev"
+    "title": "How to Get the Google UX Design Certificate for Free in 2026",
+    "description": "A guide on obtaining the Google UX Design Professional Certificate through Coursera Financial Aid — without paying.",
+    "link": "https://medium.com/@askirdyaev/how-to-get-the-google-ux-design-certificate-for-free-in-2026-6f2811d0b38e"
   },
   {
-    "date": "2026-04-18",
-    "type": "talk",
-    "title": "Выступление на ProductSense",
-    "description": "Рассказал про подход к дизайну финтех-продуктов в Юго-Восточной Азии: как работать с контекстом, которого ты не знаешь.",
-    "link": ""
-  },
-  {
-    "date": "2026-03-05",
-    "type": "case",
-    "title": "Редизайн онбординга в Skyro",
-    "description": "Переработали флоу верификации пользователей: конверсия выросла на 23%, время завершения сократилось на 40%.",
-    "link": ""
-  },
-  {
-    "date": "2026-02-14",
-    "type": "ai",
-    "title": "Эксперимент: генерация user research через LLM",
-    "description": "Протестировал подход к синтезу пользовательских интервью с помощью Claude. Делюсь выводами и ограничениями.",
-    "link": "https://t.me/krdv"
-  },
-  {
-    "date": "2025-12-10",
-    "type": "mentorship",
-    "title": "Набор в менторскую программу",
-    "description": "Открыл слоты для менторства продуктовых дизайнеров уровня mid/senior. Работаем над карьерным ростом и переходом в продуктовый дизайн.",
-    "link": "https://t.me/krdv"
-  },
-  {
-    "date": "2025-10-22",
+    "date": "2026-05-08",
     "type": "article",
-    "title": "Дизайн-менеджмент на удалёнке: как выстраивать команду",
-    "description": "Статья на Хабре про управление распределёнными дизайн-командами — процессы, доверие и метрики.",
-    "link": "https://habr.com/ru/users/FlappyKird/articles/"
+    "title": "Why your "clean" design kills conversion in half the world",
+    "description": "Minimalist design underperforms in many markets. Using a Mexican credit app case study to show why context beats aesthetics.",
+    "link": "https://medium.com/design-bootcamp/why-your-clean-design-kills-conversion-in-half-the-world-5b33d85dbb8a"
   },
   {
-    "date": "2025-09-01",
+    "date": "2025-02-25",
+    "type": "article",
+    "title": "«Лучше работа без диплома, чем диплом без работы» — история дизайнера",
+    "description": "Рассказал Skillbox о пути из менеджмента в Сбербанке до product designer в лондонском финтехе. Про смену карьеры, обучение и то, что дизайн — это на 70% исследования, а не картинки.",
+    "link": "https://skillbox.ru/media/design/story-aleksej-kirdyaev/"
+  },
+  {
+    "date": "2025-02-01",
     "type": "career",
-    "title": "Переезд в Лондон",
-    "description": "Продолжаю работать в Skyro, теперь из Лондона. Новый часовой пояс, старая команда.",
+    "title": "Joined Skyro as Product Designer",
+    "description": "Started working on a fintech product for the Philippines market. Building lending and financial services UX from the ground up.",
+    "link": ""
+  },
+  {
+    "date": "2023-06-01",
+    "type": "career",
+    "title": "Founding Designer at Keybento",
+    "description": "Led design of a home exchange platform for families — UX/UI, user journey, and brand identity from scratch. Part-time, London.",
     "link": ""
   }
 ]
