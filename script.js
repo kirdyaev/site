@@ -9,40 +9,41 @@ async function loadArena() {
   const container = document.getElementById('arenaChannels');
   if (!container) return;
 
-  container.innerHTML = '';
+  try {
+    const results = await Promise.all(
+      ARENA_CHANNELS.map(({ slug }) =>
+        fetch(`https://api.are.na/v2/channels/${slug}?per=30`)
+          .then(r => r.ok ? r.json() : null)
+          .catch(() => null)
+      )
+    );
 
-  for (const { slug, href } of ARENA_CHANNELS) {
-    try {
-      const res = await fetch(`https://api.are.na/v2/channels/${slug}?per=12`);
-      if (!res.ok) continue;
-      const ch = await res.json();
+    const allImages = results
+      .filter(Boolean)
+      .flatMap(ch => ch.contents || [])
+      .filter(b => b.class === 'Image' && b.image?.large?.url);
 
-      const year = new Date(ch.created_at).getFullYear();
-      const images = (ch.contents || [])
-        .filter(b => b.class === 'Image' && b.image?.large?.url)
-        .slice(0, 10);
+    // Shuffle
+    for (let i = allImages.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allImages[i], allImages[j]] = [allImages[j], allImages[i]];
+    }
 
-      const thumbsHTML = images.length
-        ? images.map(b => `<img class="arena-thumb" src="${b.image.large.url}" alt="" loading="lazy">`).join('')
-        : Array(4).fill('<div class="arena-thumb-placeholder"></div>').join('');
+    if (!allImages.length) {
+      container.innerHTML = '<div class="feed-loading">Could not load images.</div>';
+      return;
+    }
 
-      const el = document.createElement('div');
-      el.className = 'arena-channel';
-      el.innerHTML = `
-        <div class="arena-channel-meta">
-          <span class="arena-channel-period">${year}</span>
-          <a class="arena-channel-title" href="${href}" target="_blank" rel="noopener">
-            ${ch.title} ↗ <span class="arena-channel-count">${ch.length} blocks</span>
-          </a>
-        </div>
-        <div class="arena-scroll">${thumbsHTML}</div>
-      `;
-      container.appendChild(el);
-    } catch (_) {}
-  }
+    const scroll = document.createElement('div');
+    scroll.className = 'arena-scroll';
+    scroll.innerHTML = allImages
+      .map(b => `<img class="arena-thumb" src="${b.image.large.url}" alt="" loading="lazy">`)
+      .join('');
 
-  if (!container.children.length) {
-    container.innerHTML = '<div class="feed-loading">Could not load channels.</div>';
+    container.innerHTML = '';
+    container.appendChild(scroll);
+  } catch (_) {
+    container.innerHTML = '<div class="feed-loading">Could not load images.</div>';
   }
 }
 
