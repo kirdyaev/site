@@ -195,7 +195,7 @@ fetch('activities.json')
   .then(data => {
     const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
     if (isActivitiesPage) {
-      renderActivitiesList(sorted);
+      renderFeed(sorted);
     } else {
       renderFeed(sorted.slice(0, FEED_LIMIT));
       if (sorted.length > FEED_LIMIT) {
