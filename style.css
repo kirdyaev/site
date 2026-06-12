@@ -300,6 +300,29 @@ a {
   opacity: 1;
 }
 
+.tool-icon-svg {
+  color: #aaa;
+  transition: color var(--transition);
+}
+
+.tool-icon-svg svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.tool-icon-svg:hover {
+  color: #10A37F;
+}
+
+[data-theme="dark"] .tool-icon-svg {
+  color: #555;
+}
+
+[data-theme="dark"] .tool-icon-svg:hover {
+  color: #10A37F;
+}
+
 /* ─── Contact ────────────────────────────────────────────── */
 .contact {
   display: flex;
