@@ -199,12 +199,7 @@ a {
   display: grid;
   grid-template-columns: 140px 1fr;
   gap: 0 var(--spacing-sm);
-  padding: var(--spacing-sm) 0;
-  border-top: 1px solid var(--border);
-}
-
-.timeline-item:last-child {
-  border-bottom: 1px solid var(--border);
+  padding: var(--spacing-xs) 0;
 }
 
 .timeline-period {
@@ -239,8 +234,6 @@ a {
   grid-template-columns: 140px 1fr;
   gap: 0 var(--spacing-sm);
   padding: var(--spacing-sm) 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
   align-items: center;
 }
 
@@ -252,28 +245,59 @@ a {
 .tool-icons {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
+  gap: 12px;
+  flex-wrap: nowrap;
 }
 
 .tool-icon {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  color: var(--grey3);
-  transition: color var(--transition);
   flex-shrink: 0;
 }
 
-.tool-icon svg {
+.tool-icon img {
   width: 20px;
   height: 20px;
+  display: block;
+  filter: grayscale(1) opacity(0.35);
+  transition: filter var(--transition);
 }
 
-.tool-icon:hover {
-  color: var(--brand, var(--grey1));
+.tool-icon:hover img {
+  filter: none;
+}
+
+[data-theme="dark"] .tool-icon img {
+  filter: grayscale(1) invert(1) opacity(0.45);
+}
+
+[data-theme="dark"] .tool-icon:hover img {
+  filter: invert(0);
+}
+
+/* Tooltip */
+.tool-icon::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--grey1);
+  color: var(--background);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 3px 7px;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.tool-icon:hover::after {
+  opacity: 1;
 }
 
 /* ─── Contact ────────────────────────────────────────────── */
