@@ -396,6 +396,11 @@ a {
   padding-bottom: 4px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  /* break out of page-shell */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-left: calc(50vw - 270px);
+  padding-right: 32px;
 }
 
 .arena-scroll::-webkit-scrollbar {
