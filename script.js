@@ -106,6 +106,23 @@ if (btn) {
   });
 }
 
+/* ─── HTML escape ────────────────────────────────────────── */
+function esc(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function safeUrl(url) {
+  try {
+    const u = new URL(url);
+    return u.protocol === 'https:' || u.protocol === 'http:' ? url : '#';
+  } catch (_) { return '#'; }
+}
+
 /* ─── Type labels ────────────────────────────────────────── */
 const TYPE_LABELS = {
   article:    'Article',
@@ -146,29 +163,29 @@ function renderFeed(items) {
     el.style.animationDelay = `${0.05 * i}s`;
 
     if (hasLink) {
-      el.href = item.link;
+      el.href = safeUrl(item.link);
       el.target = '_blank';
       el.rel = 'noopener';
     }
 
-    const label = TYPE_LABELS[item.type] || item.type;
+    const label = TYPE_LABELS[item.type] || esc(item.type);
     const platform = getPlatformSlug(item.link);
     const platformIcon = platform
-      ? `<img class="feed-platform-icon" src="https://cdn.simpleicons.org/${platform}" alt="${platform}">`
+      ? `<img class="feed-platform-icon" src="https://cdn.simpleicons.org/${esc(platform)}" alt="${esc(platform)}">`
       : '';
 
     el.innerHTML = `
-      <div class="feed-date">${formatDate(item.date)}</div>
+      <div class="feed-date">${esc(formatDate(item.date))}</div>
       <div class="feed-body">
         <div class="feed-type-badge">
           <span class="feed-type-dot"></span>
-          ${label}${platformIcon}
+          ${esc(label)}${platformIcon}
         </div>
         <div class="feed-title">
-          ${item.title}
+          ${esc(item.title)}
           ${hasLink ? '<span class="feed-title-arrow">↗</span>' : ''}
         </div>
-        ${item.description ? `<div class="feed-desc">${item.description}</div>` : ''}
+        ${item.description ? `<div class="feed-desc">${esc(item.description)}</div>` : ''}
       </div>
     `;
 
@@ -189,10 +206,10 @@ function renderActivitiesList(items) {
 
     el.innerHTML = `
       ${hasLink
-        ? `<a class="act-title" href="${item.link}" target="_blank" rel="noopener">${item.title} ↗</a>`
-        : `<span class="act-title">${item.title}</span>`
+        ? `<a class="act-title" href="${safeUrl(item.link)}" target="_blank" rel="noopener">${esc(item.title)} ↗</a>`
+        : `<span class="act-title">${esc(item.title)}</span>`
       }
-      ${item.description ? `<p class="act-desc">${item.description}</p>` : ''}
+      ${item.description ? `<p class="act-desc">${esc(item.description)}</p>` : ''}
     `;
 
     feed.appendChild(el);
