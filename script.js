@@ -199,29 +199,86 @@ function renderActivitiesList(items) {
   });
 }
 
+/* ─── RSS sources (auto-imported) ───────────────────────── */
+const RSS_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+const RSS_SOURCES = [
+  {
+    url: 'https://medium.com/feed/@askirdyaev',
+    type: 'medium',
+  },
+  {
+    url: 'https://habr.com/ru/users/FlappyKird/rss/articles/',
+    type: 'article',
+  },
+];
+
+function isoFromRssDate(str) {
+  if (!str) return null;
+  const d = new Date(str);
+  if (isNaN(d)) return null;
+  return d.toISOString().slice(0, 10);
+}
+
+async function fetchRss(source) {
+  try {
+    const res = await fetch(RSS_PROXY + encodeURIComponent(source.url));
+    const json = await res.json();
+    if (json.status !== 'ok' || !json.items) return [];
+    return json.items.map(item => ({
+      date: isoFromRssDate(item.pubDate),
+      type: source.type,
+      title: item.title || '',
+      description: item.description
+        ? item.description.replace(/<[^>]+>/g, '').slice(0, 160).trim() + '…'
+        : '',
+      link: item.link || item.guid || '',
+      _auto: true,
+    })).filter(i => i.date);
+  } catch (_) {
+    return [];
+  }
+}
+
 /* ─── Load activities ────────────────────────────────────── */
 const FEED_LIMIT = 5;
 const isActivitiesPage = document.body.dataset.page === 'activities';
 
-fetch('activities.json')
-  .then(r => r.json())
-  .then(data => {
-    const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-    if (isActivitiesPage) {
-      renderFeed(sorted);
-    } else {
-      renderFeed(sorted.slice(0, FEED_LIMIT));
-      if (sorted.length > FEED_LIMIT) {
-        const feed = document.getElementById('feed');
-        const btn = document.createElement('a');
-        btn.href = 'activities.html';
-        btn.className = 'show-more';
-        btn.textContent = `Show all ${sorted.length} activities →`;
-        feed.after(btn);
-      }
+async function loadActivities() {
+  const feed = document.getElementById('feed');
+  if (!feed) return;
+
+  // Fetch manual entries + all RSS sources in parallel
+  const [manual, ...rssResults] = await Promise.all([
+    fetch('activities.json').then(r => r.json()).catch(() => []),
+    ...RSS_SOURCES.map(fetchRss),
+  ]);
+
+  // Build a set of known links from manual entries (to avoid duplicates)
+  const manualLinks = new Set(
+    manual.map(i => i.link).filter(Boolean).map(l => l.split('?')[0])
+  );
+
+  // Keep only RSS items not already in manual
+  const fresh = rssResults
+    .flat()
+    .filter(i => !manualLinks.has(i.link.split('?')[0]));
+
+  const all = [...manual, ...fresh]
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  if (isActivitiesPage) {
+    renderFeed(all);
+  } else {
+    renderFeed(all.slice(0, FEED_LIMIT));
+    if (all.length > FEED_LIMIT) {
+      const btn = document.createElement('a');
+      btn.href = 'activities.html';
+      btn.className = 'show-more';
+      btn.textContent = `Show all ${all.length} activities →`;
+      feed.after(btn);
     }
-  })
-  .catch(() => {
-    document.getElementById('feed').innerHTML =
-      '<div class="feed-loading">Could not load updates.</div>';
-  });
+  }
+}
+
+loadActivities();
